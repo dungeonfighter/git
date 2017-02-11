@@ -13,11 +13,11 @@ int ta(int n){
 }
 
 int main(int argc, char const *argv[]){
-	cout<<"輸入河內塔數量:";
+	cout<<"块猠ず娥计秖:";
 	int n;
 	cin>>n;
 	//f(1)=1,f(2)=3,f(3)=7,f(4)=15,
-	cout<<"需移動"<<ta(n)<<"次"<<endl ;
+	cout<<"惠簿笆"<<ta(n)<<"Ω"<<endl ;
 	return 0;
 }
 /*==============================================================*/
