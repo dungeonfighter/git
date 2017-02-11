@@ -1,5 +1,5 @@
 #ifndef NODESOURCE_HPP //全大寫 點變底線
-#define NODESOURCE_HPP
+#define NODESOURCE_HPP	//定義格式
 
 typedef struct node { 
 int data ; 
