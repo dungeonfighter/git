@@ -20,8 +20,9 @@ int main(int argc, char const *argv[]){
 		}
 		current=new node ;
 		current->data = a ;
-		head=current;
+		head=current;//第一個節點
 		
+		//一直產生節點或者選擇結束
 		while(1){
 			pre=current;
 
@@ -38,7 +39,7 @@ int main(int argc, char const *argv[]){
 			
 			pre->next=current ;
 		}
-
+		//印出節點資料
 		while(head!=NULL){
 			cout<<head->data<<"  ";
 			head=head->next;
