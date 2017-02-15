@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
 
 //generate new node
@@ -124,7 +124,7 @@ void priall(NODE* head){
 void sort(NODE* head){
 	//n=node's length
 	int n=length(head);
-	for (int i = 0; i < n*n; ++i)
+	for (int i = 0; i < n; ++i)
 	{
 		NODE* p;
 		p=head;

@@ -117,7 +117,7 @@ singlenode:: NODE* singlenode:: delete_node(){
 void singlenode:: sort(){
 	//n=node's length
 	int n=length();
-	for (int i = 0; i < n*n; ++i)
+	for (int i = 0; i < n; ++i)
 	{
 		NODE* p;
 		p=this->head->next;

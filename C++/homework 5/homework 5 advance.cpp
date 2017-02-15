@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <time.h>
 using namespace std;
 
@@ -110,7 +110,7 @@ void priall(NODE* head){//show node
 
 void sort(NODE* head){
 	int n=length(head);
-	for (int i = 0; i < n*n; ++i)
+	for (int i = 0; i < n; ++i)
 	{
 		NODE* p;
 		p=head;
