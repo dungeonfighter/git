@@ -5,22 +5,21 @@
 using namespace std;
 /*==============================================================*/
 int main(int argc, char const *argv[]){
-	srand(time(NULL));
+	//產生單向鏈結物件a
 	singlenode a ;
+	//產生頭節點
 	a.gethead();
-	for (int i = 0; i < 5; ++i)
-	{
-		a.insert(a.getnode());
-	}
+	//產生五個節點並插入
+	a.multgetnode(5);
+	//顯示所有節點
 	a.priall();
+	//排序節點
 	a.sort();
 	a.priall();
-	a.delete_node();
+	//刪除節點
+	a.delete_node();	
 	a.priall();
-	for (int i = 0; i < 3; ++i)
-	{
-		a.insert(a.getnode());
-	}
+	a.multgetnode(3);
 	a.priall();
 	a.sort();
 	a.priall();

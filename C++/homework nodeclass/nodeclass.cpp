@@ -1,9 +1,12 @@
 #include <iostream>
 #include "nodeclass.hpp"
+#include <time.h>
 using namespace std;
+
 
 //產生新節點
 singlenode::NODE* singlenode::getnode (){
+	
 	NODE *p;
 	p = new NODE;
 	p->next=nullptr;
@@ -16,6 +19,15 @@ singlenode::NODE* singlenode::getnode (){
 	//return node
 	return(p);
 
+}
+
+//產生複數節點(利用getmode)
+void singlenode:: multgetnode(int num){
+	for (int i = 0; i < num; ++i)
+	{
+		insert(getnode());
+	}
+		
 }
 
 //釋放節點
@@ -76,7 +88,7 @@ void singlenode:: insert(NODE *item){
 
 }
 
-//刪除節點 X 
+//刪除節點藉由資料值
 singlenode:: NODE* singlenode:: delete_node(){ 
 	cout<<"input node's data for delete node:";
 	int a;
@@ -113,7 +125,7 @@ singlenode:: NODE* singlenode:: delete_node(){
 	}
 }
 
-//排序節點 X
+//排序節點
 void singlenode:: sort(){
 	//n=node's length
 	int n=length();
@@ -134,7 +146,7 @@ void singlenode:: sort(){
 	cout<<"sort complete "<<endl;
 }
 
-//顯示所有節點 X
+//顯示所有節點
 void singlenode:: priall(){
 	cout<<"node: ";
 	NODE* p=this->head->next;
@@ -146,6 +158,7 @@ void singlenode:: priall(){
 }
 
 void singlenode::gethead(){
+	srand(time(NULL));
 	this->head=getnode();
 
 }

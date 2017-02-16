@@ -10,7 +10,7 @@ public:
 	};
 
 public:
-	//產生新節點
+	//產生單一新節點
 	NODE *getnode ();
 	//釋放節點
 	void freenode (NODE *p); 
@@ -28,8 +28,8 @@ public:
 	void priall();
 	//產生頭節點
 	void gethead();
-
-
+	//產生複數節點(利用getnode)
+	void multgetnode(int num);
 public:
 	NODE* head ;
 
