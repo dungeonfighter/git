@@ -7,8 +7,6 @@ using namespace std;
 int main(int argc, char const *argv[]){
 	//產生單向鏈結物件a
 	singlenode a ;
-	//產生頭節點
-	
 	//產生五個節點並插入
 	a.multgetnode(5);
 	//顯示所有節點

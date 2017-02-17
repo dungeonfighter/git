@@ -44,8 +44,7 @@ void singlenode:: multgetnode(int num){
 }
 
 //釋放節點
-void singlenode:: freenode (NODE *p) 
-{
+void singlenode:: freenode (NODE *p) {
 	delete p;
 }
 
@@ -71,8 +70,7 @@ singlenode::NODE* singlenode::search_node ( int num ){
 }
 
 //尋找節點長度
-int singlenode:: length () 
-{
+int singlenode:: length (){
 	int num=0;
 	NODE *q = this->head->next;
 	while (q != NULL) {
