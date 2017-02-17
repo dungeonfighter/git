@@ -8,12 +8,10 @@ public:
 	int data ;
 	NODE* next;
 	};
-
 public:
-	//產生單一新節點
-	NODE *getnode ();
-	//釋放節點
-	void freenode (NODE *p); 
+	singlenode();
+    ~singlenode();
+public: 
 	//尋找節點
 	NODE* search_node ( int num );
 	//找節點長度
@@ -26,21 +24,20 @@ public:
 	void sort();
 	//show node
 	void priall();
-	//產生頭節點
-	void gethead();
 	//產生複數節點(利用getnode)
 	void multgetnode(int num);
-public:
+
+private:
+	//釋放節點
+	void freenode (NODE *p);
+	//產生單一新節點
+	NODE *getnode ();
+	//刪除所有節點
+	void deleteallnode();
+private:
 	NODE* head ;
 
 };
-
-
-
-
-
-
-
 
 
 #endif

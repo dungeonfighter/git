@@ -3,6 +3,18 @@
 #include <time.h>
 using namespace std;
 
+//建構子
+singlenode::singlenode():head(getnode()){
+	srand(time(NULL));
+}
+//解構子
+singlenode::~singlenode(){
+	deleteallnode();
+}
+
+
+
+
 
 //產生新節點
 singlenode::NODE* singlenode::getnode (){
@@ -23,17 +35,18 @@ singlenode::NODE* singlenode::getnode (){
 
 //產生複數節點(利用getmode)
 void singlenode:: multgetnode(int num){
+	
 	for (int i = 0; i < num; ++i)
 	{
 		insert(getnode());
 	}
-		
+	cout<<"節點產生完成"<<endl;	
 }
 
 //釋放節點
 void singlenode:: freenode (NODE *p) 
 {
-	free(p);
+	delete p;
 }
 
 //尋找節點
@@ -103,25 +116,25 @@ singlenode:: NODE* singlenode:: delete_node(){
     }
     //data exist
     else{
-    NODE* pre ;
-    pre = this->head;
-	//find data's previous node
-	while ( pre->next != p ){
-		pre = pre->next;
-	}
+    	NODE* pre ;
+    	pre = this->head;
+		//find data's previous node
+		while ( pre->next != p ){
+			pre = pre->next;
+		}
     
-    // delete node when it is node's tail
-    if(p->next==nullptr){  
-    	pre->next=nullptr;
-    }
-    //dalete node when node between two nodes
-    else{
-    	pre->next=p->next;
+    	// delete node when it is node's tail
+    	if(p->next==nullptr){  
+    		pre->next=nullptr;
+    	}
+    	//dalete node when node between two nodes
+    	else{
+    		pre->next=p->next;
     	
-    }
-    freenode(p);
-    cout<<"delete complete"<<endl;
-    return pre;
+    	}
+    	freenode(p);
+    	cout<<"delete complete"<<endl;
+    	return pre;
 	}
 }
 
@@ -157,8 +170,10 @@ void singlenode:: priall(){
 	cout<<endl;
 }
 
-void singlenode::gethead(){
-	srand(time(NULL));
-	this->head=getnode();
-
+void singlenode:: deleteallnode(){
+	NODE *p=this->head;
+	while(p!=nullptr){
+		freenode(p);
+		p=p->next;
+	}
 }
