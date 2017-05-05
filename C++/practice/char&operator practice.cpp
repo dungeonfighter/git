@@ -18,8 +18,7 @@ public:
         s=new char[l];
         
     }*/
-    Str(const Str & A ){//why &
-        
+    Str(const Str & A ){ 
         s=new char[strlen(A.s)+1]{'\0'};
         strcpy(s,A.s);
     }
@@ -30,7 +29,6 @@ public:
     Str pri(){
         cout<<"pri s =  ";
         cout<<s<<endl;
-
         return *this;
     }
     
@@ -47,33 +45,58 @@ public:
     }
     
     Str &operator+=(Str const &a ){
-        char* temp ;
-        temp=s;
-        s=new char[strlen(a.s)+strlen(temp)+1]{'\0'};//大括號 一開始\0 (初始化)
-        strcat(s,temp);
-        strcat(s,a.s);
-        delete [] temp;
-        len=strlen(a.s)+strlen(temp)+1;
-        return *this ;
-    }
-    Str &operator+=(char a ){
-        for(int i = 0; i < len; ++i) {
-            if(s[i]==NULL){
-                s[i]=a;
-            }
+        if(this!=&a){//例外處理(a+=a)
+            char* temp ;
+            temp=s;
+            s=new char[strlen(a.s)+strlen(temp)+1]{};//大括號 一開始\0 (初始化)
+            strcat(s,temp);
+            strcat(s,a.s);
+            delete [] temp;
+            len=strlen(s);
         }
-        
+        else{
+            char* temp=new char[strlen(s)+1]{} ;
+            strcpy(temp,s);
+            delete []s;
+            s=new char[strlen(a.s)+strlen(temp)+1]{};//大括號 一開始\0 (初始化)
+            strcat(s,temp);
+            strcat(s,temp);
+            delete [] temp;
+            len=strlen(s);
+        }
         return *this ;
     }
 
+    Str &operator+=(char const rhs ){//可能為右值，不能參考
+        char* temp = s;
+        size_t len = strlen(temp)+1;
+        s=new char[len+1]{};
+        strcat(s, temp);
+        s[len-1]=rhs;
+        delete [] temp;
+        return *this ;
+    }
+    //將字串加入物件s
+    Str &operator+=(char rhs[] ){
+        char* temp = s;
+        size_t len = strlen(temp)+strlen(rhs)+1;
+        s=new char[len+1]{};
+        strcat(s, temp);
+        strcat(s, rhs);
+        delete [] temp;
+        return *this ;
+    }
+    //複製物件
     Str &operator=(Str const &a ){
+        if(this!=&a){
         this->~Str();//解構子需要this呼叫
         s=new char[strlen(a.s)+1]{'\0'};
         strcpy(s,a.s);
+        }
         return *this ;
     }
-    char operator=(int a ){//???
-        
+    //將數值轉成字元返還
+    char operator=(int a ){ 
         return char(a)  ;
     }
 
@@ -82,7 +105,6 @@ public:
     }
 
     int size(){
-
         return(strlen(s));
     }
 
@@ -90,21 +112,27 @@ public:
     char* s;
     int len;
 };
-    Str operator+(Str const &a,Str const &b ){
+    Str const operator+(Str const &a,Str const &b ){//???
         return Str(a)+=b ;
     }
 //================================================================
 int main(int argc, char const *argv[]){
+    cout<<endl;
     Str a="Hello World!";
     Str b=a;
     Str c;
     c=a+b; // c is "Hello World！" x2
-    // print "Hello World！" x2
+    // // print "Hello World！" x2
     
     for (int i = 0; i < c.size(); ++i){
         cout << c[i];
         c[i]=(i+65);
-    }c += "\n\0";//???
+    }
+    cout << endl;
+    c.pri();
+    c+="YZ\0";
+    //char e[]="YZ";
+    //c += e;
     cout << endl;
     c.pri();
 
@@ -113,6 +141,7 @@ int main(int argc, char const *argv[]){
     c.resize(4);
     c+='D';
     c.pri();
+    
     return 0;
 }
 /*==============================================================*/
