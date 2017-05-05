@@ -45,7 +45,7 @@ public:
     }
     
     Str &operator+=(Str const &a ){
-        if(this!=&a){//例外處理(a+=a)
+        if(this!=&a){
             char* temp ;
             temp=s;
             s=new char[strlen(a.s)+strlen(temp)+1]{};//大括號 一開始\0 (初始化)
@@ -54,7 +54,7 @@ public:
             delete [] temp;
             len=strlen(s);
         }
-        else{
+        else{ //例外處理(a+=a)
             char* temp=new char[strlen(s)+1]{} ;
             strcpy(temp,s);
             delete []s;
