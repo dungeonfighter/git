@@ -43,25 +43,20 @@ public:
     }
 
     Str &operator+=(Str const &a) {
+        char* temp=s;
         if(this!=&a) {
-            char* temp ;
-            temp=s;
             s=new char[strlen(a.s)+strlen(temp)+1] {}; //大括號 一開始\0 (初始化)
             strcat(s,temp);
             strcat(s,a.s);
-            delete [] temp;
-            len=strlen(s);
+             
         }
         else { //例外處理(a+=a)
-            char* temp=new char[strlen(s)+1] {} ;
-            strcpy(temp,s);
-            delete []s;
-            s=new char[strlen(a.s)+strlen(temp)+1] {}; //大括號 一開始\0 (初始化)
+            s=new char[2*strlen(temp)+1] {};
+            strcpy(s,temp);
             strcat(s,temp);
-            strcat(s,temp);
-            delete [] temp;
-            len=strlen(s);
         }
+        len=strlen(s);
+        delete [] temp;
         return *this ;
     }
 
@@ -112,10 +107,8 @@ public:
     const size_t size() const {//後面的const是指const屬性呼叫const的函式
         return(strlen(s));
     }
-    friend Str const operator+(Str const &a,Str const &b);
-    friend ostream &operator << (ostream &s,Str &ob);
-    friend istream &operator>>(istream &s, Str &p);
-private:
+
+public:
     char* s;
     int len;
     int number;
