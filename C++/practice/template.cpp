@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-
+//利用樣板T來自動生成不同的型態(int 、 double..)
 template<class T>
 class Demo{
     
@@ -11,47 +11,64 @@ class Demo{
             
         }
 
-        T const pri(){
+        T const get(){
             return this->a;
         }
-        Demo operator=(Demo const a){
+        Demo<T> operator=(Demo<T> const a){
             this->a=a.a;
             return *this;
         }
-        Demo &operator+=(Demo const &d){
+        Demo<T> &operator+=(Demo<T> const &d){
             this->a=this->a+d.a;
             return *this;                
         }
-        Demo &operator+=(T const d){
+        Demo<T> &operator+=(T const d){
             this->a=this->a+d;
             return *this;                
         }
+        friend bool operator==(const Demo<T> &d,const Demo<T> &e){
+            if(d.a==e.a){
+                return true ;
+            }              
+            else return false ;
+        }
+        friend bool operator!=(const Demo<T> &d,const Demo<T> &e){
+            if(d.a==e.a){
+                return false ;
+            }              
+            else return true ;
+        }
+        friend ostream &operator << (ostream &s,Demo<T> &ob) {
+        s<<ob.a;
+        return s;
+        }
+        explicit operator T&(){
+            return a;
+        }
+    
     private:
         T a;
 };
 
-template<class T>
-//為什麼可以?
-T const operator+(T const &c,T const &d){    
-    return T(c)+=d;                
+template<class T1>
+Demo<T1> operator+(const Demo<T1> &c,const Demo<T1> &d){    
+    return Demo<T1>(c)+=d;                
 }
 
-/* 
-為什麼不行?
-Demo operator+(Demo &c , Demo &d){
-            return Demo(c)+d;                
-        }
-*/
 
 int main(int argc, char const *argv[]){
     
-    Demo<double> a(30);
-    Demo<double> b(40);
-    a=a+b;
-    cout<<"a=" <<a.pri() << endl;
-    a+=50;
-    cout<<"a=" <<a.pri() << endl;
-    a+=a;
-    cout<<"a=" <<a.pri() << endl;
+    Demo<double> a(3.7),b(4.5);
+    a+=b;
+    cout<<"a="<<a<< endl;
+    cout<<"b="<<b<< endl;
+    Demo<double> c=a+b;
+    cout<<"c="<<c<< endl;
+    if(c==Demo<double>(12.7))
+        cout<<"O"<<endl;
+    if(c!=Demo<double>(8.2))
+        cout<<"X"<<endl; 
+    double dou=(double)c;
+    cout<<"dou="<<dou<< endl;
     return 0;
 }
