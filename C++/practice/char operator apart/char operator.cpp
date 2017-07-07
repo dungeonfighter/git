@@ -10,7 +10,7 @@ Final: 2017/05/25
 #include <fstream>
 #include <vector>
 #include "char.hpp"
-#include "char.cpp"
+//#include "char.cpp"
 using namespace std;
 int main(int argc, char const *argv[]) {
     Str a="Hello World!";
@@ -38,7 +38,7 @@ int main(int argc, char const *argv[]) {
     } cout << endl;
     
     //char* ss=(char*)a;
-
+	system("pause");
     return 0;
 }
 //shift del ¬å¤@¾ã¦æ

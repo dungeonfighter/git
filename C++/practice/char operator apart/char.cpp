@@ -5,11 +5,11 @@ By   : Wun
 Final: 2017/05/25
 *****************************************************************/
 #include <iostream>
-#include "char.hpp"
 #include <cstring>
 #include <cmath>
 #include <fstream>
 #include <vector>
+#include "char.hpp"//將hpp的內容複製貼上，注意順序問題
 using namespace std;
 
 
@@ -38,16 +38,15 @@ using namespace std;
 
     Str Str::resize(int l) {
         
-        char* temp ;
-        temp=s;
-        s=new char[l+1] ;
-        s[l]='\0';
-        for(int i = 0; i < l; ++i) {
-                s[i]=temp[i];
-        }
-        delete [] temp;
-        len=l;
-        return *this;
+		len = l;
+		char* temp;
+		temp = s;
+		s = new char[l + 1]{ '\0' };
+		for (int i = 0; i < l; ++i) {
+			s[i] = temp[i];
+		}
+		delete[] temp;
+		return *this;
     }
 
     Str &Str::operator+=(Str const &a) {
@@ -63,14 +62,13 @@ using namespace std;
     }
 
     Str &Str::operator+=(char const rhs) {
-        char* temp = s;
-        size_t len = strlen(temp)+1;
-        s=new char[len] ;
-        //s[len-1]='\0';
-        strcpy(s, temp);
-        s[len-1]=rhs;
-        delete [] temp;
-        return *this ;
+		char* temp = s;
+		size_t len = strlen(temp) + 1;
+		s = new char[len + 1]{};
+		strcpy(s, temp);
+		s[len - 1] = rhs;
+		delete[] temp;
+		return *this;
     }
     //將字串加入物件s
     Str &Str::operator+=(char const rhs[]) {

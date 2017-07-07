@@ -4,10 +4,11 @@ Date : 2017/05/25
 By   : Wun
 Final: 2017/05/25
 *****************************************************************/
-#ifndef CHAR_HPP
-#define CHAR_HPP
+//#ifndef CHAR_HPP
+//#define CHAR_HPP
 //#include <iostream> hpp盡量不要include
 //using namespace std;
+#pragma once//VS推薦的方式(不要用endif...)
 class Str {
 public:
 
@@ -52,4 +53,4 @@ std::ostream &operator << (std::ostream &s,Str &ob);
 std::istream &operator>>(std::istream &s, Str &p);
 
 
-#endif // CHAR_HPP
+//#endif // CHAR_HPP
