@@ -1,6 +1,6 @@
 #include <iostream>
-#include "nodeclass.hpp"
 #include <time.h>
+#include "nodeclass.hpp"
 using namespace std;
 
 //建構子
@@ -44,9 +44,7 @@ void singlenode:: multgetnode(int num){
 }
 
 //釋放節點
-void singlenode:: freenode (NODE *p) {
-	delete p;
-}
+
 
 //尋找節點
 singlenode::NODE* singlenode::search_node ( int num ){
@@ -130,7 +128,7 @@ singlenode:: NODE* singlenode:: delete_node(){
     		pre->next=p->next;
     	
     	}
-    	freenode(p);
+    	delete p;
     	cout<<"delete complete"<<endl;
     	return pre;
 	}
@@ -171,7 +169,9 @@ void singlenode:: priall(){
 void singlenode:: deleteallnode(){
 	NODE *p=this->head;
 	while(p!=nullptr){
-		freenode(p);
-		p=p->next;
+		NODE *now=p;
+		p = p->next;
+		delete now;
+		
 	}
 }

@@ -1,8 +1,8 @@
 #include <iostream>
-#include "nodeclass.hpp"
-#include "nodeclass.cpp"
 #include <time.h>
+#include "nodeclass.hpp"
 using namespace std;
+
 /*==============================================================*/
 int main(int argc, char const *argv[]){
 	//產生單向鏈結物件a
@@ -15,13 +15,13 @@ int main(int argc, char const *argv[]){
 	a.sort();
 	a.priall();
 	//刪除節點
-	a.delete_node();	
+	//a.delete_node();	
 	a.priall();
 	a.multgetnode(2);
 	a.priall();
 	a.sort();
 	a.priall();
-	
+	system("pause");
 	return 0;
 }
 /*==============================================================*/

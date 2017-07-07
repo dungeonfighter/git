@@ -1,5 +1,5 @@
-#ifndef NODECLASS_HPP //全大寫 點變底線
-#define NODECLASS_HPP //定義格式
+
+#pragma once
 
 class singlenode {
 
@@ -28,8 +28,6 @@ public:
 	void multgetnode(int num);
 
 private:
-	//釋放節點
-	void freenode (NODE *p);
 	//產生單一新節點
 	NODE *getnode ();
 	//刪除所有節點
@@ -40,4 +38,3 @@ private:
 };
 
 
-#endif
