@@ -1,0 +1,3 @@
+ggc 16 0
+steam 24 8
+pixiv 10 5
