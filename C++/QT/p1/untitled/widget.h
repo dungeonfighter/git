@@ -2,9 +2,6 @@
 #define WIDGET_H
 
 #include <QWidget>
-#include <QTimer>
-#include <QImage>
-
 
 namespace Ui {
 class Widget;
@@ -17,19 +14,16 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    int a=0;
-    bool status=false;
 
 private slots:
-    void showimage();
-
     void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::Widget *ui;
-    QTimer *timer=new QTimer;
-    QList<QImage> myImages;
-
+    QString file;
+    QImage srcimg;
 };
 
 #endif // WIDGET_H

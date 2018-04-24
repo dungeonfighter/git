@@ -13,17 +13,21 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">alternate-background-color: rgb(170, 170, 255);
+</string>
+  </property>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
      <x>70</x>
      <y>30</y>
      <width>47</width>
-     <height>12</height>
+     <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton">
@@ -34,6 +38,10 @@
      <width>75</width>
      <height>23</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 170, 255);
+font: 75 9pt &quot;Agency FB&quot;;</string>
    </property>
    <property name="text">
     <string>開始</string>
@@ -49,7 +57,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>TextLabel</string>
+    <string/>
    </property>
   </widget>
  </widget>
