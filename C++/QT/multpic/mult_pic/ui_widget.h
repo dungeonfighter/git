@@ -32,12 +32,16 @@ public:
         if (Widget->objectName().isEmpty())
             Widget->setObjectName(QStringLiteral("Widget"));
         Widget->resize(400, 300);
+        Widget->setStyleSheet(QLatin1String("alternate-background-color: rgb(170, 170, 255);\n"
+""));
         label = new QLabel(Widget);
         label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(70, 30, 47, 12));
+        label->setGeometry(QRect(70, 30, 47, 16));
         pushButton = new QPushButton(Widget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(170, 30, 75, 23));
+        pushButton->setGeometry(QRect(200, 30, 75, 23));
+        pushButton->setStyleSheet(QLatin1String("background-color: rgb(255, 170, 255);\n"
+"font: 75 9pt \"Agency FB\";"));
         label_2 = new QLabel(Widget);
         label_2->setObjectName(QStringLiteral("label_2"));
         label_2->setGeometry(QRect(70, 160, 47, 12));
@@ -50,9 +54,9 @@ public:
     void retranslateUi(QWidget *Widget)
     {
         Widget->setWindowTitle(QApplication::translate("Widget", "Widget", Q_NULLPTR));
-        label->setText(QApplication::translate("Widget", "TextLabel", Q_NULLPTR));
+        label->setText(QString());
         pushButton->setText(QApplication::translate("Widget", "\351\226\213\345\247\213", Q_NULLPTR));
-        label_2->setText(QApplication::translate("Widget", "TextLabel", Q_NULLPTR));
+        label_2->setText(QString());
     } // retranslateUi
 
 };
