@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/Ima">
+        <file>KUAS.bmp</file>
+    </qresource>
+</RCC>

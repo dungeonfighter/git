@@ -1,0 +1,31 @@
+#ifndef WIDGET_H
+#define WIDGET_H
+
+#include <QWidget>
+#include <QLabel>
+#include "BitField.h"
+namespace Ui {
+class Widget;
+}
+
+class Widget : public QWidget
+{
+    Q_OBJECT
+
+public:
+    explicit Widget(QWidget *parent = 0);
+    ~Widget();
+    QImage srcimg;
+    QLabel *labelarray[8];
+    QList<QImage> myImages;
+    QImage graysrc;
+    void slice();
+private slots:
+    void on_pushButton_clicked();
+
+private:
+    Ui::Widget *ui;
+
+};
+
+#endif // WIDGET_H
