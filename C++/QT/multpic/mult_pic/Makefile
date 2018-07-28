@@ -111,6 +111,8 @@ Makefile: mult_pic.pro C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmake.conf
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fb_support_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_help.pri \
@@ -137,6 +139,8 @@ Makefile: mult_pic.pro C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmake.conf
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_positioning_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport_private.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qmldebug_private.pri \
@@ -152,6 +156,10 @@ Makefile: mult_pic.pro C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmake.conf
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets_private.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script_private.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_sensors.pri \
@@ -166,6 +174,8 @@ Makefile: mult_pic.pro C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/win32-g++/qmake.conf
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_svg_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib_private.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech.pri \
+		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_theme_support_private.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uiplugin.pri \
 		C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uitools.pri \
@@ -267,6 +277,8 @@ C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_egl_support_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_eventdispatcher_support_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fb_support_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_fontdatabase_support_private.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gamepad_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_gui_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_help.pri:
@@ -293,6 +305,8 @@ C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_positioning.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_positioning_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_printsupport_private.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_purchasing_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qml_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_qmldebug_private.pri:
@@ -308,6 +322,10 @@ C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickparticles_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quicktemplates2_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_quickwidgets_private.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_script_private.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scripttools_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_scxml_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_sensors.pri:
@@ -322,6 +340,8 @@ C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_svg.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_svg_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_testlib_private.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech.pri:
+C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_texttospeech_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_theme_support_private.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uiplugin.pri:
 C:/Qt/Qt5.8.0/5.8/mingw53_32/mkspecs/modules/qt_lib_uitools.pri:

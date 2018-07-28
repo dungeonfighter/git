@@ -17,8 +17,8 @@ class Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = 0);
     ~Widget();
-    int a=0;
-    bool status=false;
+    int a=0;//記數
+    bool status=false;//開始或暫停狀態
 
 private slots:
     void showimage();
@@ -28,7 +28,7 @@ private slots:
 private:
     Ui::Widget *ui;
     QTimer *timer=new QTimer;
-    QList<QImage> myImages;
+    QList<QImage> myImages;//儲存多張影像，類似vector
 
 };
 

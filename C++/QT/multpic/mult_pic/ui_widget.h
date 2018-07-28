@@ -39,7 +39,7 @@ public:
         label->setGeometry(QRect(70, 30, 47, 16));
         pushButton = new QPushButton(Widget);
         pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(170, 30, 75, 23));
+        pushButton->setGeometry(QRect(200, 30, 75, 23));
         pushButton->setStyleSheet(QLatin1String("background-color: rgb(255, 170, 255);\n"
 "font: 75 9pt \"Agency FB\";"));
         label_2 = new QLabel(Widget);
