@@ -14,29 +14,29 @@ private:
     
 
 private:
-	class tour {
-	public:
-		tour(GA & mas);//初始化用 
+    class tour {
+    public:
+        tour(GA & mas);//初始化用
         tour(GA & mas,std::vector<int> chi);
-		std::vector<int>s;
+        std::vector<int>s;
     public:
         double lengh();
         void countlen();
         void path();
-        tour& operator =(tour a){
+        tour& operator =(tour &a){
             s.assign(a.s.begin(),a.s.end());
             len=a.lengh();
             return *this;
         }
         
-	private:
-		double len=0;
-		GA* ga;
-	};
+    private:
+        double len=0;
+        GA* ga;
+    };
 
     void select(std::vector<tour>&new_G);
 public:
-	void print();
+    void print();
     void solve();
 
 
