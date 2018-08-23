@@ -10,4 +10,9 @@ Main.o:
 clean:
 	rm -rf *.o  
 
-
+test: exect
+	./testmain.o 123
+exect: test.o
+	g++ -g -std=c++11 test.o -o testmain.o
+test.o: test.cpp
+	g++ -g -c -std=c++11 -Wall test.cpp

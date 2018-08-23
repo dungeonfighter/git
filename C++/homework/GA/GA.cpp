@@ -8,11 +8,7 @@
 #include <string>
 #include "GA.h"
 
-
-
-
 GA::GA(size_t setp,size_t g):people(setp),gn(g) {
-
 }
 
 GA::tour::tour(GA & mas) {//初始化用 
@@ -105,8 +101,7 @@ void GA::initial(){
 
 }
 
-double GA::tour::lengh(){
-            
+double GA::tour::lengh(){      
     return len;
 }
 
@@ -144,17 +139,16 @@ void GA::place_p_best(){//找最好 把目前最好換到第一個
         bestlen=population[temp].lengh();
         std::cout<<bestlen<<std::endl;
         mt=0.18;
-        //if(mt<0.18)mt=0.18;
     }
     else{
         mt+=0.034;
-        if(mt>0.8)mt=0.8;
+        if(mt>0.94)mt=0.94;
     }
-    int s=double(rand()-1)/double(RAND_MAX);
-    /*if(s<0.85)*/std::swap(population[temp],population[0]);
+    
+    std::swap(population[temp],population[0]);
 }
 
-void GA::cross(){//第一個和所有其他配對
+void GA::cross(){//第零個和所有其他配對
     
     std::vector<tour>new_G;//存所有的子
     for(size_t i = 1; i < people; i++)
@@ -167,13 +161,9 @@ void GA::cross(){//第一個和所有其他配對
         std::vector<int>tabu(datacount,0);
         std::vector<int>tabu1(datacount,0);
         size_t r=(rand()%(datacount/2-5))+5;//複製長度
-        double w=double(rand()-1)/double(RAND_MAX);
-        size_t x=rand()%(datacount/2);//起點
-        size_t x1=rand()%(datacount/2);
-        while(x==x1){
-            x=rand()%(datacount/2);//起點
-            x1=rand()%(datacount/2);
-        }
+        double w=double(rand()-1)/double(RAND_MAX);//突變因子
+        size_t x=0;//優的起點
+        size_t x1=rand()%(datacount/2);//其餘的起點 隨機
         //複製x~x+r , x1~x1+r 到 0~r
         for(size_t j = 0; j < r; j++)
         {
@@ -194,7 +184,6 @@ void GA::cross(){//第一個和所有其他配對
                 tabu1[population[0].s[k]]=1;
             }          
         }
-        
         //突變
         if(w<mt){
             int t1;
@@ -210,13 +199,10 @@ void GA::cross(){//第一個和所有其他配對
                 std::swap(child[t1],child[t2]);
                 std::swap(child1[t1],child1[t2]);
             }
-            
         }
-
         new_G.push_back(tour(*this,child));
         new_G.push_back(tour(*this,child1));
     }
-
     select(new_G);
 }
 
@@ -238,20 +224,16 @@ void GA::select(std::vector<tour>&new_G){
                 break;
             }
         }
-        
     }
-    
 }
 
 void GA::solve(){
     initial();
-       
     while(gn>0){
-        place_p_best();//把世代中最好的放第一個
+        place_p_best();//把世代中最好的放第零個
         cross();
         gn--;
     }
     place_p_best();
-
 }
 

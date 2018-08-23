@@ -12,34 +12,31 @@ private:
     void place_p_best();//把當前最好的放在第一個位置
     void cross();//產生子代
     
-
 private:
-    class tour {
-    public:
-        tour(GA & mas);//初始化用
+	class tour {
+	public:
+		tour(GA & mas);//初始化用 
         tour(GA & mas,std::vector<int> chi);
-        std::vector<int>s;
+		std::vector<int>s;
     public:
         double lengh();
         void countlen();
         void path();
-        tour& operator =(tour &a){
+        tour& operator =(tour a){
             s.assign(a.s.begin(),a.s.end());
             len=a.lengh();
             return *this;
         }
         
-    private:
-        double len=0;
-        GA* ga;
-    };
+	private:
+		double len=0;
+		GA* ga;
+	};
 
     void select(std::vector<tour>&new_G);
 public:
-    void print();
+	void print();
     void solve();
-
-
 
 private:
 	std::vector<tour>population;//人口群
@@ -52,6 +49,5 @@ private:
 	size_t datacount=5;//資料數
     size_t gn=10;//世代數
 };
-
 
 #endif

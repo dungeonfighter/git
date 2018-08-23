@@ -3,7 +3,6 @@
 #include <iostream>
 using namespace std;
 
-
 int main(int argc, char const *argv[])
 { 
     GA tsp(300,300);//人口 世代
