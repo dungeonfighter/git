@@ -141,10 +141,11 @@ int main(int argc , char const *argv[])
 {
   if(read(argv[1],datas)){
       initial(argv[2],center,group);
+	  while (iter>0 && sse>80) {
+		  run();
+		  iter--;
+	  }
+	  cout << "---over" << endl;
   }
-  while( iter>0 && sse>80){
-    run();
-    iter--;
-  }
-  cout<<"---over"<<endl;
+  
 }
