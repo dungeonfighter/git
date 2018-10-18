@@ -5,7 +5,7 @@
 class NineFourOS
 {
 public:
-    enum algorithm{FIFO,OPT,ESC};
+    enum algorithm{FIFO,OPT,ESC,MY};
 public:
     NineFourOS();
     void exec();
@@ -24,6 +24,7 @@ private:
     int io_num=0;//interrupt num
     int disk_write_num=0;
     bool rs_exist=false;
+    int rs_sel=0;//kind of dataset
     std::vector<int> rs;//references string
 };
 
