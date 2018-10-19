@@ -8,7 +8,6 @@
 NineFourOS::NineFourOS()
 {
 
-
 }
 
 void NineFourOS::exec()
@@ -23,7 +22,7 @@ void NineFourOS::exec()
         opt();
         break;
     case ESC:
-
+        esc();
         break;
     default:
         break;
@@ -32,8 +31,8 @@ void NineFourOS::exec()
 
 void NineFourOS::reset()
 {
-    pf_num=0;//page fault num
-    io_num=0;//interrupt num
+    pf_num=0;//page fault 次數
+    io_num=0;//interrupt 次數
     disk_write_num=0;
 
 }
@@ -46,7 +45,7 @@ void NineFourOS::sel(){
 
     std::cout<<"input for kind of dataset(0~2): ";
     std::cin>>s;
-    if(rs_exist==true && s!=rs_sel){//change dataset when dataset exist
+    if(rs_exist==true && s!=rs_sel){//當測資已存在時，改變測資種類
         rs.clear();
         std::vector<int> temp;
         rs=temp;
@@ -70,7 +69,6 @@ void NineFourOS::sel(){
         break;
     case ESC:
         select=ESC;
-        break;
         break;
     case MY:
         select=MY;
@@ -187,6 +185,42 @@ void NineFourOS::opt()
     std::cout<<pf_num<<std::endl;
 }
 
+void NineFourOS::esc(){
+    std::deque<int> memory;
+    int co=0;
+
+    while(memory.size()<frame_num){//預先填滿記憶體 **還未考慮dirty bit , reference bit
+        std::deque<int>::iterator it;
+        it = find(memory.begin()+co, memory.end(), rs[co]);
+        if (it == memory.end()){
+            memory.push_back(rs[co]);
+        }
+        ++co;
+    }
+
+    for(size_t i=co;i<rs.size();++i){//co到最後一筆測資
+        bool ex=false;
+        for(size_t j=0;j<memory.size();++j){
+            if(memory[j]==rs[i])ex=true;
+            break;
+        }
+        if(!ex){//page fault
+            
+
+
+
+
+
+            pf_num++;
+        }
+
+        
+
+
+    }
+
+}
+
 void NineFourOS::setdata()
 {
     if(!rs_exist){
@@ -222,19 +256,19 @@ void NineFourOS::setdata()
                 ar=rand()%26+25;//25~50
                 temp.reserve(ar);
                 ini=rand()%500+1;
-                for(int i=0;i<ar;++i){//temp for random
+                for(int i=0;i<ar;++i){//範圍內的亂數表
                     temp.push_back(ini);
                     ++ini;
                     if(ini>500)ini-=500;
                 }
-                int cou=rand()%101+100;//取100~200個temp中的數
+                int cou=rand()%101+100;//取100~200個temp(亂數表)中的數
                 for(int i=0;i<cou;++i){
                     int s;
                     s=rand()%ar;
                     rs.push_back(temp[s]);
                     ++count;
                 }
-                ar=rand()%10;//兩筆function call中的隨機資料
+                ar=rand()%11+1;//夾在兩筆function call中的隨機資料(1~10)
                 for(int i=0;i<ar;++i){
                     ini=rand()%500+1;
                     rs.push_back(ini);

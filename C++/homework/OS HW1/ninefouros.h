@@ -12,19 +12,20 @@ public:
     void reset();
 private:
     void sel();
-    void fifo();
-    void opt();
-    void setdata();
+    void fifo();//先進先出
+    void opt();//最佳法
+    void esc();//強化二次交換
+    void setdata();//設定測資
 
 private:
-    size_t frame_num=5;//20 40 60 80 100
+    size_t frame_num=60;//20 40 60 80 100
     int datanum=100000;
     algorithm select=FIFO;
-    int pf_num=0;//page fault num
-    int io_num=0;//interrupt num
+    int pf_num=0;//page fault 次數
+    int io_num=0;//interrupt 次數
     int disk_write_num=0;
     bool rs_exist=false;
-    int rs_sel=0;//kind of dataset
+    int rs_sel=0;//測資種類
     std::vector<int> rs;//references string
 };
 
