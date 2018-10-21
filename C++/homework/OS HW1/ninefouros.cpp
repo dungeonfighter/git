@@ -90,7 +90,7 @@ void NineFourOS::fifo()
     std::deque<int> memory;
     int co = 0;
 
-    while (memory.size() < frame_num)
+    while (memory.size() < frame_num)//預先填滿frame數的page到memory
     {
         std::deque<int>::iterator it;
         it = find(memory.begin(), memory.end(), rs[co]);
@@ -105,7 +105,7 @@ void NineFourOS::fifo()
         bool ex = false;
         for (size_t j = 0; j < memory.size(); ++j)
         {
-            if (memory[j] == rs[i]){
+            if (memory[j] == rs[i]){//找到並跳出
                 ex = true;
                 break;
             }
@@ -248,12 +248,7 @@ void NineFourOS::setdata()
                 }
             }
 
-            /*for(int i=0;i<10;++i){
-                for(int j=0;j<10;++j){
-                    std::cout<<rs[10*i+j]<<" ";
-                }
-                std::cout<<std::endl;
-            }*/
+            
         }
         else if (rs_sel == 1)
         {

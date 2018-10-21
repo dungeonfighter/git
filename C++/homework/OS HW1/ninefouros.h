@@ -15,6 +15,7 @@ private:
     void fifo();//先進先出
     void opt();//最佳法
     void esc();//強化二次交換
+    void my();
     void setdata();//設定測資
 
 private:
