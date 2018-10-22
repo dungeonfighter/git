@@ -50,7 +50,10 @@ void NineFourOS::sel()
     if (rs_exist == true && s != rs_sel)
     { //當測資已存在時，改變測資種類
         rs.clear();
+        rs_dir.clear();
         std::vector<int> temp;
+        std::vector<bool> temp1;
+        rs_dir=temp1;
         rs = temp;
         rs_exist = false;
     }
@@ -195,31 +198,75 @@ void NineFourOS::esc()
     int co = 0;
 
     while (memory.size() < frame_num)
-    { //預先填滿記憶體 **還未考慮dirty bit , reference bit
+    { //預先填滿記憶體
         std::deque<int>::iterator it;
-        it = find(memory.begin() + co, memory.end(), rs[co]);
+        it = find(memory.begin() , memory.end(), rs[co]);
         if (it == memory.end())
         {
             memory.push_back(rs[co]);
+            dr[rs[co]][0]=rs_dir[co];
         }
         ++co;
     }
-
+    int victim=rand()%20;
     for (size_t i = co; i < rs.size(); ++i)
     { //co到最後一筆測資
         bool ex = false;
         for (size_t j = 0; j < memory.size(); ++j)
         {
-            if (memory[j] == rs[i])
+            if (memory[j] == rs[i]){
                 ex = true;
-            break;
+                break;
+            }
         }
         if (!ex)
         { //page fault
-
+            dr[memory[victim]][0]=0;
+            memory[victim] = rs[i];
             pf_num++;
         }
+        dr[rs[i]][0]=rs_dir[i];
+
+        //選擇victim
+        std::vector<int> temp;//dirty bit = 0 填進選擇表
+        for(size_t j = 0; j < memory.size(); ++j){
+            if(dr[memory[j]][0]==0){
+                temp.push_back(j);
+            }
+        }
+        if(temp.size()>0){//從選擇表隨機挑
+            int sel;
+            sel=rand()%( temp.size() );
+            victim=temp[sel];
+        }
+        else{
+            victim=rand()%frame_num;
+        }
+
     }
+    std::cout << pf_num << std::endl;
+}
+
+void NineFourOS::my()
+{
+    std::deque<int> memory;
+    int co = 0;
+
+    while (memory.size() < frame_num)
+    { //預先填滿記憶體
+        std::deque<int>::iterator it;
+        it = find(memory.begin() , memory.end(), rs[co]);
+        if (it == memory.end())
+        {
+            memory.push_back(rs[co]);
+            dr[rs[co]][0]=rs_dir[co];
+        }
+        ++co;
+    }
+
+
+
+
 }
 
 void NineFourOS::setdata()
@@ -227,7 +274,14 @@ void NineFourOS::setdata()
     if (!rs_exist)
     {
         rs.reserve(100000);
+        dr.resize(501);
+        for(size_t i = 0; i < dr.size(); ++i){
+            dr[i].resize(2);
+
+        }
+
         int count = 0;
+
         //srand(time(NULL));
         if (rs_sel == 0)
         {
@@ -251,7 +305,7 @@ void NineFourOS::setdata()
             
         }
         else if (rs_sel == 1)
-        {
+        {   //2. data
             while (count < 100000)
             {
                 std::vector<int> temp;
@@ -274,7 +328,7 @@ void NineFourOS::setdata()
                     rs.push_back(temp[s]);
                     ++count;
                 }
-                ar = rand() % 41 + 10; //夾在兩筆function call中的隨機資料(10~50)
+                ar = rand() % 51 + 50; //夾在兩筆function call中的隨機資料(50~100)
                 for (int i = 0; i < ar; ++i)
                 {
                     ini = rand() % 500 + 1;
@@ -292,7 +346,7 @@ void NineFourOS::setdata()
             }
         }
         else
-        {
+        { //2. data  1(休閒 0~100) 3(作業 70~350) 3(玩300~500) 2(東摸西摸0~500) 1(休閒0~100)
             while (count < 100000)
             {
                 int ar, ini;
@@ -305,6 +359,17 @@ void NineFourOS::setdata()
                     if (ini > 500)
                         ini -= 500;
                     ++count;
+                }
+            }
+        }
+        //設定 rs寫入表(dirty bit)
+        rs_dir.resize(rs.size());
+        for(int i = 0; i < rs.size()-frame_num; ++i){
+            rs_dir[i]=false;
+            for(int j = 1; j < frame_num; ++j){//後面的frame數內有用到，設定為1
+                if(rs[i]==rs[i+j]){
+                    rs_dir[i]=true;
+                    break;
                 }
             }
         }

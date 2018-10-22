@@ -19,7 +19,7 @@ private:
     void setdata();//設定測資
 
 private:
-    size_t frame_num=60;//20 40 60 80 100
+    int frame_num=20;//20 40 60 80 100
     int datanum=100000;
     algorithm select=FIFO;
     int pf_num=0;//page fault 次數
@@ -28,6 +28,8 @@ private:
     bool rs_exist=false;
     int rs_sel=0;//測資種類
     std::vector<int> rs;//references string
+    std::vector<std::vector<int>> dr;//dirty bit
+    std::vector<bool> rs_dir;//rs寫入表(dirty)
 };
 
 
