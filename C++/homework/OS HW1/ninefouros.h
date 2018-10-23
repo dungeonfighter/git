@@ -10,14 +10,15 @@ public:
     NineFourOS();
     void exec();
     void reset();
+    void output_data();
 private:
     void sel();
     void fifo();//先進先出
     void opt();//最佳法
     void esc();//強化二次交換
     void my();
-    void setdata();//設定測資
-
+    void setdata();//讀檔並存進rs
+    
 private:
     int frame_num=20;//20 40 60 80 100
     int datanum=100000;
