@@ -18,6 +18,7 @@ private:
     void esc();//強化二次交換
     void my();
     void setdata();//讀檔並存進rs
+    void clear_rs_dir();
     
 private:
     int frame_num=20;//20 40 60 80 100
@@ -25,7 +26,7 @@ private:
     algorithm select=FIFO;
     int pf_num=0;//page fault 次數
     int io_num=0;//interrupt 次數
-    int disk_write_num=0;
+    int disk_write_num=0;//寫回次數
     bool rs_exist=false;
     int rs_sel=0;//測資種類
     std::vector<int> rs;//references string

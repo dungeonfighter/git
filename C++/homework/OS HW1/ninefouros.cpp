@@ -32,7 +32,9 @@ void NineFourOS::exec()
         fifo(); //例外預設
         break;
     }
-    std::cout<<"frame_num: "<<frame_num<<" "<<"dataset: "<<rs_sel<<" "<<"algothrim: "<<select<<std::endl;
+    std::cout << "frame_num: " << frame_num << " "
+              << "dataset: " << rs_sel << " "
+              << "algothrim: " << select << std::endl;
     std::cout << "page fault:" << pf_num << std::endl;
     std::cout << "interrupt:" << io_num << std::endl;
     std::cout << "disk write:" << disk_write_num << std::endl;
@@ -99,8 +101,8 @@ void NineFourOS::output_data()
     }
     out.close();
 
-    //2. data  1成(休閒 1~150) 3成(作業 70~400) 3成(玩250~500) 2成(東摸西摸1~500) 1成(休閒1~150)
-    //模擬放假的一天電腦使用狀況
+    //2. data 構成: 1成(休閒 1~150) 3成(作業 70~400) 3成(玩250~500) 2成(東摸西摸1~500) 1成(休閒1~150)
+    //說明:模擬放假的一天電腦使用狀況
     out.open("data 2.txt", std::ios_base::out);
     count = 0;
     int temp;
@@ -162,30 +164,28 @@ void NineFourOS::sel()
     std::cout << "input for frame_num(1~100)(input -1 exit): ";
     int s;
     std::cin >> s;
-    if (0 < s && s <= 200){
+    if (0 < s && s <= 200)
+    {
         frame_num = s;
     }
-    else if (s == -1){
+    else if (s == -1)
+    {
         exit(0);
     }
-    else{
-        frame_num=20;//防呆預設 20
+    else
+    {
+        frame_num = 20; //防呆預設 20
     }
-    
+
     std::cout << "input for kind of dataset(0~2): ";
     std::cin >> s;
-    if (s > 2 || s < 0){//防呆 預設 0
+    if (s > 2 || s < 0)
+    { //防呆 預設 0
         s = 0;
     }
     if (rs_exist == true && s != rs_sel)
     { //當測資已存在時，改變測資種類，並清空rs,rs_dir
-        rs.clear();
-        rs_dir.clear();
-        std::vector<int> temp;
-        std::vector<bool> temp1;
-        rs_dir = temp1;
-        rs = temp;
-        rs_exist = false;
+        clear_rs_dir();
     }
     else
     {
@@ -211,17 +211,15 @@ void NineFourOS::sel()
         select = MY;
         break;
     default:
-        select = FIFO;//防呆 預設 fifo
+        select = FIFO; //防呆 預設 fifo
         break;
     }
 }
 
 void NineFourOS::fifo()
 {
-
     std::deque<int> memory;
     int co = 0;
-
     while (memory.size() < frame_num) //預先填滿frame數的page到memory
     {
         std::deque<int>::iterator it;
@@ -253,12 +251,10 @@ void NineFourOS::fifo()
             io_num++;
             disk_write_num++;
         }
-
-        //for(auto& it : memory){
+        //for(auto& it : memory){//巡迴用
         //    std::cout<<it<<" ";
         //}
     }
-    
 }
 
 void NineFourOS::opt()
@@ -315,7 +311,6 @@ void NineFourOS::opt()
                 ++c;
             }
         }
-
         //根據count使用表選擇victim
         int temp_count = 0;                        //存最久沒被使用的次數
         for (size_t j = 0; j < memory.size(); j++) //記憶體中每筆資料
@@ -327,7 +322,6 @@ void NineFourOS::opt()
             }
         }
     }
-    
 }
 
 void NineFourOS::esc()
@@ -390,7 +384,6 @@ void NineFourOS::esc()
             victim = rand() % frame_num;
         }
     }
-   
 }
 
 void NineFourOS::my()
@@ -481,8 +474,6 @@ void NineFourOS::my()
             }
         }
     }
-
-    
 }
 
 void NineFourOS::setdata()
@@ -565,4 +556,15 @@ void NineFourOS::setdata()
         }
         rs_exist = true;
     }
+}
+
+void NineFourOS::clear_rs_dir()//清空rs和rs_dir
+{ 
+    rs.clear();
+    rs_dir.clear();
+    std::vector<int> temp;
+    std::vector<bool> temp1;
+    rs_dir = temp1;
+    rs = temp;
+    rs_exist = false;
 }
