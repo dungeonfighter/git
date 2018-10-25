@@ -29,8 +29,8 @@ private:
     int disk_write_num=0;//寫回次數
     bool rs_exist=false;
     int rs_sel=0;//測資種類
-    std::vector<int> rs;//references string
-    std::vector<std::vector<int>> dr;//dirty bit
+    std::vector<short int> rs;//references string
+    std::vector< std::vector<short int> > dr;//dirty bit
     std::vector<bool> rs_dir;//rs寫入表(dirty)
 };
 

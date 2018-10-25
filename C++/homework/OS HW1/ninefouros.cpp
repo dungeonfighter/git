@@ -76,7 +76,7 @@ void NineFourOS::output_data()
     count = 0;
     while (count < 100000)
     {
-        std::vector<int> temp;
+        std::vector<short int> temp;
         int ar, ini;
         ar = rand() % 26 + 25; //25~50
         temp.reserve(ar);
@@ -185,7 +185,7 @@ void NineFourOS::sel()
             std::cout<<"frame_num = "<<frame_num<<std::endl<<std::endl;
             for(int j=0 ; j<3 ; ++j){//data
                 rs_sel=j;
-                std::cout<<"data = "<<rs_sel<<std::endl;
+                std::cout<<"data type = "<<rs_sel<<std::endl;
                 for(int k=0 ; k<4 ; ++k){//algorithm
 
                     switch (k) {
@@ -208,6 +208,7 @@ void NineFourOS::sel()
                     reset();
 
                 }
+                std::cout<<"data size = "<<rs.size()<<std::endl;
                 clear_rs_dir();
                 std::cout<<std::endl;
             }
@@ -276,11 +277,11 @@ void NineFourOS::sel()
 
 void NineFourOS::fifo()
 {
-    std::deque<int> memory;
+    std::deque<short int> memory;
     int co = 0;
     while (memory.size() < frame_num) //預先填滿frame數的page到memory
     {
-        std::deque<int>::iterator it;
+        std::deque<short int>::iterator it;
         it = find(memory.begin(), memory.end(), rs[co]);
         if (it == memory.end())
         {
@@ -317,12 +318,12 @@ void NineFourOS::fifo()
 
 void NineFourOS::opt()
 {
-    std::vector<int> memory;
+    std::vector<short int> memory;
     memory.reserve(frame_num);
     int ini = 0;
     while (memory.size() < frame_num)
     { //先一次讀取frame數目的資料並填到memory裡
-        std::vector<int>::iterator it;
+        std::vector<short int>::iterator it;
         it = find(memory.begin(), memory.end(), rs[ini]);
         if (it == memory.end())
         { //不在memory內就放進去
@@ -384,12 +385,12 @@ void NineFourOS::opt()
 
 void NineFourOS::esc()
 {
-    std::deque<int> memory;
+    std::deque<short int> memory;
     int co = 0;
 
     while (memory.size() < frame_num)
     { //預先填滿記憶體
-        std::deque<int>::iterator it;
+        std::deque<short int>::iterator it;
         it = find(memory.begin(), memory.end(), rs[co]);
         if (it == memory.end())
         {
@@ -424,7 +425,7 @@ void NineFourOS::esc()
 
 
         //選擇victim
-        std::vector<int> temp; //dirty bit = 0 填進選擇表
+        std::vector<short int> temp; //dirty bit = 0 填進選擇表
         for (size_t j = 0; j < memory.size(); ++j)
         {
             if (dr[memory[j]][0] == 0)
@@ -447,13 +448,13 @@ void NineFourOS::esc()
 
 void NineFourOS::my()
 {
-    std::deque<int> memory;
+    std::deque<short int> memory;
     int co = 0;
     int victim = rand() % 20;
     std::vector<double> phe(frame_num, 3);
     while (memory.size() < frame_num)
     { //預先填滿記憶體
-        std::deque<int>::iterator it;
+        std::deque<short int>::iterator it;
         it = find(memory.begin(), memory.end(), rs[co]);
         if (it == memory.end())
         {
@@ -474,16 +475,16 @@ void NineFourOS::my()
             if (memory[j] == rs[i])
             {
                 ex = true;
-                phe[j] *= 2.5; //存在，增加濃度
-                if (phe[j] > 1000)
-                    phe[j] = 1000;
+                phe[j] *= 1.5; //存在，增加濃度
+                if (phe[j] > 10000)
+                    phe[j] = 10000;
                 break;
             }
         }
         if (!ex)
         { //page fault
             memory[victim] = rs[i];
-            phe[victim] = 1; //剛進來的預設濃度
+            phe[victim] = 0.8; //剛進來的預設濃度
             io_num++;
             pf_num++;
             disk_write_num++;
@@ -495,8 +496,8 @@ void NineFourOS::my()
         {
             if (dr[memory[j]][0] == 1)
             {
-                phe[j] *= 8.5;
-                phe[j] += 10;
+                phe[j] *= 10;
+                phe[j] += 20;
                 if (phe[j] > 10000)
                     phe[j] = 10000;
             }
@@ -517,10 +518,16 @@ void NineFourOS::my()
             pro[i] = (1.0 / phe[i]) / dei;
         }
         //根據機率表選擇victim
-        double max = (double)rand() / (double)(RAND_MAX + 1.0);
+        double max = (double)(rand()-1) / (double)(RAND_MAX);
         double ad = 0;
-        victim = rand() % frame_num; //保底
-
+        //victim = rand() % frame_num; //保底
+        double temp=1.1;
+        for(size_t i=0 ; i<pro.size() ; ++i){
+            if(pro[i]<temp){
+                temp=pro[i];
+                victim=i;
+            }
+        }
         for (size_t i = 0; i < pro.size(); i++)
         {
             ad += pro[i];
@@ -598,10 +605,10 @@ void NineFourOS::setdata()
         }
         //設定 rs寫入表(dirty bit)
         rs_dir.resize(rs.size());
-        for (size_t i = 0; i < rs.size() - frame_num; ++i)
+        for (size_t i = 0; i < rs.size() - 150; ++i)
         {
             rs_dir[i] = false;
-            for (size_t j = 1; j < frame_num; ++j)
+            for (size_t j = 1; j < 150; ++j)
             { //後面的frame數內有用到，設定為1
                 if (rs[i] == rs[i + j])
                 {
@@ -618,7 +625,7 @@ void NineFourOS::clear_rs_dir()//清空rs和rs_dir
 { 
     rs.clear();
     rs_dir.clear();
-    std::vector<int> temp;
+    std::vector<short int> temp;
     std::vector<bool> temp1;
     rs_dir = temp1;
     rs = temp;
