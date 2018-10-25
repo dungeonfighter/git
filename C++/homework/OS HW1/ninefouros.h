@@ -8,11 +8,11 @@ public:
     enum algorithm{FIFO,OPT,ESC,MY};
 public:
     NineFourOS();
-    void exec();
+    void sel();
     void reset();
     void output_data();
 private:
-    void sel();
+    void exec();
     void fifo();//先進先出
     void opt();//最佳法
     void esc();//強化二次交換
@@ -21,7 +21,7 @@ private:
     void clear_rs_dir();
     
 private:
-    int frame_num=20;//20 40 60 80 100
+    size_t frame_num=20;//20 40 60 80 100
     int datanum=100000;
     algorithm select=FIFO;
     int pf_num=0;//page fault 次數
