@@ -183,15 +183,16 @@ void NineFourOS::sel()
     if (e == 1)
     { //全部執行
         std::cout << std::endl;
-        for (int i = 0; i < 5; ++i)
-        {                            //framenum
-            frame_num = 20 + 20 * i; //20 40 60 80 100
-            std::cout << "frame_num = " << frame_num << std::endl
+        for (int i = 0; i < 3; ++i)
+        {                            //data
+            rs_sel = i;
+
+            std::cout << "dataset = " << rs_sel << std::endl
                       << std::endl;
-            for (int j = 0; j < 3; ++j)
-            { //data
-                rs_sel = j;
-                std::cout << "data type = " << rs_sel << std::endl;
+            for (int j = 0; j < 5; ++j)
+            { //frame
+                frame_num = 20 + 20 * j; //20 40 60 80 100
+                std::cout << "frame num = " << frame_num << std::endl;
                 for (int k = 0; k < 4; ++k)
                 { //algorithm
 
@@ -214,12 +215,14 @@ void NineFourOS::sel()
                     }
                     exec();
                     reset();
-                    clear_rs_dir();
+
                 }
-                std::cout << "data size = " << rs.size() << std::endl;
-                
-                std::cout << std::endl;
+
+                //std::cout << std::endl;
             }
+            std::cout << "data size = " << rs.size() << std::endl;
+            clear_rs_dir();
+
             std::cout << std::endl;
         }
     }
@@ -426,10 +429,8 @@ void NineFourOS::esc()
         }
         if (!ex)
         { //page fault
-            if (dr[memory[victim]][0] == 0)
-            {
-                disk_write_num++;
-            }
+
+            disk_write_num++;
             //dr[memory[victim]][0] = 0;
             memory[victim] = rs[i];
             
@@ -500,10 +501,9 @@ void NineFourOS::my()
         if (!ex)
         { //page fault
             
-            if (dr[memory[victim]][0] == 0)
-            {
-                disk_write_num++;
-            }
+
+            disk_write_num++;
+
             //dr[memory[victim]][0] = 0;
             memory[victim] = rs[i];
             phe[victim] = 0.8; //剛進來的預設濃度
@@ -517,8 +517,8 @@ void NineFourOS::my()
         {
             if (dr[memory[j]][0] == 1)
             {
-                phe[j] *= 15;
-                phe[j] += 18;
+                phe[j] *= 2.5;
+                phe[j] += 5;
                 if (phe[j] > 10000)
                     phe[j] = 10000;
             }
@@ -628,10 +628,10 @@ void NineFourOS::setdata()
         }
         //設定 rs寫入表(dirty bit)
         rs_dir.resize(rs.size());
-        for (size_t i = 0; i < rs.size() - 35; ++i)
+        for (size_t i = 0; i < rs.size() - 150; ++i)
         {
             rs_dir[i] = false;
-            for (size_t j = 1; j < 35; ++j)
+            for (size_t j = 1; j < 150; ++j)
             { //後面的frame數內有用到，設定為true
                 if (rs[i] == rs[i + j])
                 {
@@ -640,8 +640,8 @@ void NineFourOS::setdata()
                 }
             }
         }
-        for (size_t i = 1; i < 220; ++i){
-            rs_dir[datanum-i*433]=true;
+        for (size_t i = 1; i < 1000; ++i){//1000個
+            rs_dir[datanum-i*10]=true;
         }
         rs_exist = true;
     }
