@@ -20,33 +20,33 @@ void NineFourOS::exec()
     switch (select)
     {
     case FIFO:
-        name="fifo";
+        name = "fifo";
         fifo();
         break;
     case OPT:
-        name="opt";
+        name = "opt";
         opt();
         break;
     case ESC:
-        name="esc";
+        name = "esc";
         esc();
         break;
     case MY:
-        name="my";
+        name = "my";
         my();
         break;
     default:
-        name="fifo";
+        name = "fifo";
         fifo(); //例外預設
         break;
     }
     /*std::cout << "frame_num: " << frame_num << " "
               << "dataset: " << rs_sel << " "*/
-    std::cout << "algothrim: " << std::setw(5) <<name <<"    ";
-    std::cout << "page fault:" << pf_num <<"    ";
-    std::cout << "interrupt:" << io_num <<"    ";
-    std::cout << "disk write:" << disk_write_num <<"    ";
-    std::cout<<std::endl;
+    std::cout << "algothrim:" << std::setw(4) << name << "    ";
+    std::cout << "page fault:" << pf_num << "    ";
+    std::cout << "interrupt:" << std::setw(6) << io_num << "    ";
+    std::cout << "disk write:" << disk_write_num << "    ";
+    std::cout << std::endl;
 }
 void NineFourOS::output_data()
 {
@@ -170,25 +170,33 @@ void NineFourOS::reset()
 }
 void NineFourOS::sel()
 {
-    std::cout<<"--- step by step 0 , run all 1  , -1 exit---: ";
+    std::cout << "--- step by step 0 , run all 1  , -1 exit---: ";
     int e;
-    std::cin>>e;
-    if(e==-1)exit(0);//-1結束
-    if(e!=1 && e!=0){
-        std::cout<<"error,use 0 "<<std::endl;
-        e=0;
+    std::cin >> e;
+    if (e == -1)
+        exit(0); //-1結束
+    if (e != 1 && e != 0)
+    {
+        std::cout << "error,use 0 " << std::endl;
+        e = 0;
     }
-    if(e==1){//全部執行
-        std::cout<<std::endl;
-        for(int i=0 ; i<5 ; ++i){//framenum
-            frame_num=20+20*i;
-            std::cout<<"frame_num = "<<frame_num<<std::endl<<std::endl;
-            for(int j=0 ; j<3 ; ++j){//data
-                rs_sel=j;
-                std::cout<<"data type = "<<rs_sel<<std::endl;
-                for(int k=0 ; k<4 ; ++k){//algorithm
+    if (e == 1)
+    { //全部執行
+        std::cout << std::endl;
+        for (int i = 0; i < 5; ++i)
+        {                            //framenum
+            frame_num = 20 + 20 * i; //20 40 60 80 100
+            std::cout << "frame_num = " << frame_num << std::endl
+                      << std::endl;
+            for (int j = 0; j < 3; ++j)
+            { //data
+                rs_sel = j;
+                std::cout << "data type = " << rs_sel << std::endl;
+                for (int k = 0; k < 4; ++k)
+                { //algorithm
 
-                    switch (k) {
+                    switch (k)
+                    {
                     case 0:
                         select = FIFO;
                         break;
@@ -206,16 +214,17 @@ void NineFourOS::sel()
                     }
                     exec();
                     reset();
-
+                    clear_rs_dir();
                 }
-                std::cout<<"data size = "<<rs.size()<<std::endl;
-                clear_rs_dir();
-                std::cout<<std::endl;
+                std::cout << "data size = " << rs.size() << std::endl;
+                
+                std::cout << std::endl;
             }
-            std::cout<<std::endl;
+            std::cout << std::endl;
         }
     }
-    else if(e==0){
+    else if (e == 0)
+    {
         //單步執行
         std::cout << "input for frame_num(1~100)(input -1 exit): ";
         int s;
@@ -357,6 +366,7 @@ void NineFourOS::opt()
             disk_write_num++;
         }
         //更新memory中每個page多久會再次會使用
+        io_num++;                                  //計算表要一次interrupt
         for (size_t j = 0; j < memory.size(); j++) //記憶體中每筆資料
         {
             int c = 1;                                 //計數多久後會用到
@@ -405,26 +415,30 @@ void NineFourOS::esc()
     for (size_t i = co; i < rs.size(); ++i)
     { //co到最後一筆測資
         bool ex = false;
+        dr[rs[i]][0] = rs_dir[i];
         for (size_t j = 0; j < memory.size(); ++j)
         {
             if (memory[j] == rs[i])
             {
-                ex = true;
+                ex = true; 
                 break;
             }
         }
         if (!ex)
         { //page fault
-            dr[memory[victim]][0] = 0;
+            if (dr[memory[victim]][0] == 0)
+            {
+                disk_write_num++;
+            }
+            //dr[memory[victim]][0] = 0;
             memory[victim] = rs[i];
-            dr[rs[i]][0] = rs_dir[i];
+            
             io_num++;
             pf_num++;
-            disk_write_num++;
         }
 
-
         //選擇victim
+        io_num++;                    //計算表要一次interrupt
         std::vector<short int> temp; //dirty bit = 0 填進選擇表
         for (size_t j = 0; j < memory.size(); ++j)
         {
@@ -470,11 +484,13 @@ void NineFourOS::my()
     for (size_t i = co; i < rs.size(); ++i)
     {
         bool ex = false;
+        dr[rs[i]][0] = rs_dir[i];
         for (size_t j = 0; j < memory.size(); ++j)
         {
             if (memory[j] == rs[i])
             {
                 ex = true;
+                
                 phe[j] *= 1.5; //存在，增加濃度
                 if (phe[j] > 10000)
                     phe[j] = 10000;
@@ -483,21 +499,26 @@ void NineFourOS::my()
         }
         if (!ex)
         { //page fault
+            
+            if (dr[memory[victim]][0] == 0)
+            {
+                disk_write_num++;
+            }
+            //dr[memory[victim]][0] = 0;
             memory[victim] = rs[i];
             phe[victim] = 0.8; //剛進來的預設濃度
             io_num++;
             pf_num++;
-            disk_write_num++;
         }
-        dr[rs[i]][0] = rs_dir[i];
-
+        
         //根據dirty bit並更新濃度
+        io_num++; //計算表要一次interrupt
         for (size_t j = 0; j < memory.size(); ++j)
         {
             if (dr[memory[j]][0] == 1)
             {
-                phe[j] *= 10;
-                phe[j] += 20;
+                phe[j] *= 15;
+                phe[j] += 18;
                 if (phe[j] > 10000)
                     phe[j] = 10000;
             }
@@ -509,31 +530,33 @@ void NineFourOS::my()
         //根據濃度算機率表
         std::vector<double> pro(frame_num, 0);
         double dei = 0; //分母
-        for (size_t i = 0; i < phe.size(); i++)
+        for (size_t j = 0; j < phe.size(); j++)
         {
-            dei += (1.0 / phe[i]); //要倒數 因為濃度越高，越不選擇
+            dei += (1.0 / phe[j]); //要倒數 因為濃度越高，越不選擇
         }
-        for (size_t i = 0; i < pro.size(); i++)
+        for (size_t j = 0; j < pro.size(); j++)
         {
-            pro[i] = (1.0 / phe[i]) / dei;
+            pro[j] = (1.0 / phe[j]) / dei;
         }
         //根據機率表選擇victim
-        double max = (double)(rand()-1) / (double)(RAND_MAX);
+        double max = (double)(rand() - 1) / (double)(RAND_MAX);
         double ad = 0;
         //victim = rand() % frame_num; //保底
-        double temp=1.1;
-        for(size_t i=0 ; i<pro.size() ; ++i){
-            if(pro[i]<temp){
-                temp=pro[i];
-                victim=i;
+        double temp = 1.1;
+        for (size_t j = 0; j < pro.size(); ++j)
+        {
+            if (pro[j] < temp)
+            {
+                temp = pro[j];
+                victim = j;
             }
         }
-        for (size_t i = 0; i < pro.size(); i++)
+        for (size_t j = 0; j < pro.size(); j++)
         {
-            ad += pro[i];
+            ad += pro[j];
             if (ad > max)
             {
-                victim = i;
+                victim = j;
                 break;
             }
         }
@@ -563,7 +586,7 @@ void NineFourOS::setdata()
             }
             else
             {
-                int temp;
+                short int temp;
                 while (in >> temp)
                 {
                     rs.push_back(temp);
@@ -580,7 +603,7 @@ void NineFourOS::setdata()
             }
             else
             {
-                int temp;
+                short int temp;
                 while (in >> temp)
                 {
                     rs.push_back(temp);
@@ -596,7 +619,7 @@ void NineFourOS::setdata()
             }
             else
             {
-                int temp;
+                short int temp;
                 while (in >> temp)
                 {
                     rs.push_back(temp);
@@ -605,11 +628,11 @@ void NineFourOS::setdata()
         }
         //設定 rs寫入表(dirty bit)
         rs_dir.resize(rs.size());
-        for (size_t i = 0; i < rs.size() - 150; ++i)
+        for (size_t i = 0; i < rs.size() - 35; ++i)
         {
             rs_dir[i] = false;
-            for (size_t j = 1; j < 150; ++j)
-            { //後面的frame數內有用到，設定為1
+            for (size_t j = 1; j < 35; ++j)
+            { //後面的frame數內有用到，設定為true
                 if (rs[i] == rs[i + j])
                 {
                     rs_dir[i] = true;
@@ -617,12 +640,15 @@ void NineFourOS::setdata()
                 }
             }
         }
+        for (size_t i = 1; i < 220; ++i){
+            rs_dir[datanum-i*433]=true;
+        }
         rs_exist = true;
     }
 }
 
-void NineFourOS::clear_rs_dir()//清空rs和rs_dir
-{ 
+void NineFourOS::clear_rs_dir() //清空rs和rs_dir
+{
     rs.clear();
     rs_dir.clear();
     std::vector<short int> temp;

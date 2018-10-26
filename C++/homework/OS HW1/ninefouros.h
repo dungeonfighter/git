@@ -30,7 +30,7 @@ private:
     bool rs_exist=false;
     int rs_sel=0;//測資種類
     std::vector<short int> rs;//references string
-    std::vector< std::vector<short int> > dr;//dirty bit
+    std::vector< std::vector<short int> > dr;//dirty bit (2D)
     std::vector<bool> rs_dir;//rs寫入表(dirty)
 };
 
