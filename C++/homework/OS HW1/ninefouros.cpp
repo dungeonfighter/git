@@ -5,8 +5,10 @@
 #include <string>
 #include <algorithm>
 #include <time.h>
+#include <time.h>
 #include <fstream>
 #include <iomanip>
+
 
 NineFourOS::NineFourOS()
 {
@@ -17,6 +19,7 @@ void NineFourOS::exec()
 {
     std::string name;
     setdata();
+    clock_t t1 = clock();
     switch (select)
     {
     case FIFO:
@@ -42,11 +45,12 @@ void NineFourOS::exec()
     }
     /*std::cout << "frame_num: " << frame_num << " "
               << "dataset: " << rs_sel << " "*/
-    std::cout << "algothrim:" << std::setw(4) << name << "    ";
-    std::cout << "page fault:" << pf_num << "    ";
-    std::cout << "interrupt:" << std::setw(6) << io_num << "    ";
-    std::cout << "disk write:" << disk_write_num << "    ";
-    std::cout << std::endl;
+    std::cout << "algothrim: " << std::setw(4) << name << "    ";
+    std::cout << "page fault: " << pf_num << "    ";
+    std::cout << "interrupt: " << std::setw(6) << io_num << "    ";
+    std::cout << "disk write: "<< std::setw(6) << disk_write_num << "    ";
+    std::cout << "clock cost: "<< std::setw(5) <<(clock() - t1) << std::endl;
+   
 }
 void NineFourOS::output_data()
 {
@@ -441,6 +445,7 @@ void NineFourOS::esc()
         //選擇victim
         io_num++;                    //計算表要一次interrupt
         std::vector<short int> temp; //dirty bit = 0 填進選擇表
+        temp.reserve(100);
         for (size_t j = 0; j < memory.size(); ++j)
         {
             if (dr[memory[j]][0] == 0)
