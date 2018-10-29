@@ -384,6 +384,9 @@ void NineFourOS::opt()
                     count[memory[j]] = c;
                     break;
                 }
+                else{
+                    count[memory[j]] = c;
+                }
                 ++c;
             }
         }
