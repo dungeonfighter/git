@@ -85,9 +85,26 @@ void findcenter(){
                 best=temp;
             }
         }
-        sse+=best;
+        
         center[i]=index;
     }
+}
+
+void SSE(){
+    sse=0;
+    for(int i = 0; i < k; i++)//各群
+    {
+        
+        for(size_t j = 0; j < group[i].size(); j++)//群中每個點
+        {
+            for(size_t r = 0; r < 4; r++)//4D
+            {
+                sse+=pow(datas[ center[i] ][r+1]-datas[ group[i][j] ][r+1],2);        
+            }
+        }
+        
+    }
+    cout<<sse<<endl;
 }
 
 void run(){//分群 找中心
@@ -117,7 +134,7 @@ void run(){//分群 找中心
     //------找中心-----
     findcenter();
     //----------------
-
+    SSE();
     //---清空group
     
     for(int i = 0; i < k; i++)
