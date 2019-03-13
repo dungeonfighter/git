@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <vector>
 #include <fstream>
@@ -7,7 +7,7 @@
 using namespace std;
 int k=3;//預設三群
 double sse=9999999;
-int iter=5;
+int iter=50;
 vector< vector<double> >datas;//原始資料
 vector<int>center;//k個 center[k]
 vector< vector<int> >group;//group[k][n]
@@ -52,18 +52,12 @@ void initial(const string n,vector<int>&c,vector< vector<int> >&g){
     k=std::stoi(n);//參數轉int
     c.resize(k);//k個中心點 1D
     g.resize(k);//k群 2D
-    int index=0;
-    if(datas.size()%k==0){
-        index=(datas.size()/k)-1;
-    }
-    else{
-        index=(datas.size()/k);
-    }
+    
     cout<<"---start"<<endl;
     
     for(int i = 1; i <= k; i++)
     {
-        center[i-1]=index*i-(rand()%index);
+        center[i-1]=(rand()%datas.size());
         
     }
 }
@@ -141,7 +135,7 @@ int main(int argc , char const *argv[])
 {
   if(read(argv[1],datas)){
       initial(argv[2],center,group);
-	  while (iter>0 && sse>80) {
+	  while (iter>0) {
 		  run();
 		  iter--;
 	  }
