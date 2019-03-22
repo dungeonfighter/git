@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <math.h>
 #include <iomanip>
@@ -14,11 +14,11 @@ GA::GA(size_t setp,size_t g):people(setp),gn(g) {
 GA::tour::tour(GA & mas) {//初始化用 
 	ga = &mas;
 	s.resize(ga->datacount);
-	for (size_t i = 0; i < s.size(); i++)
+	for (size_t i = 0; i < s.size(); ++i)
 	{
 		s[i] = i;
 	}
-	for (size_t i = 0; i < s.size(); i++)
+	for (size_t i = 0; i < s.size(); ++i)
 	{
 		int x = 0,y = 0;
 		while (x==y)

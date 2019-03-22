@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 #include <fstream>
 #include <math.h>
 #include <iomanip>
@@ -116,15 +116,15 @@ void Aco::solve(){
 
 void Aco::getantsways(){
     
-    for(size_t i = 0; i < antsnum; i++)//起點隨機
+    for(size_t i = 0; i < antsnum; ++i)//起點隨機
     {
         antsway[i][0]=rand()%datacount;
         allow[i][antsway[i][0]]=1;//加入tabu
     }
     
-    for(size_t i = 0; i < antsnum ; i++)//每隻螞蟻
+    for(size_t i = 0; i < antsnum ; ++i)//每隻螞蟻
     {
-        for(size_t j = 1; j < datacount; j++)//從第二點開始
+        for(size_t j = 1; j < datacount; ++j)//從第二點開始
         {
             setpro(i , j-1);//建第i隻螞蟻 j-1 ~ j 的機率表
             setposi(i , j);//根據機率表找下一點
@@ -133,10 +133,10 @@ void Aco::getantsways(){
     
 }
 
-void Aco::setpro(int index,int now){//第index隻螞蟻 antsway[index][now]--->才是現在的城市編號
+void Aco::setpro(int &index,int &now){//第index隻螞蟻 antsway[index][now]--->才是現在的城市編號
     
     double dei=0;//分母     
-    for(size_t j = 0; j < datacount; j++)
+    for(size_t j = 0; j < datacount; ++j)
     {
         if(allow[index][j]==0){
             dei+=( (pow(phe[antsway[ index][now] ][j],alpha))*(pow((1/range[ antsway[index][now] ][j]),beta)) );
@@ -144,7 +144,7 @@ void Aco::setpro(int index,int now){//第index隻螞蟻 antsway[index][now]--->�
         }
     }
     
-    for(size_t i = 0; i < datacount; i++)
+    for(size_t i = 0; i < datacount; ++i)
     {
         if(allow[index][i]==1)pro[index][i]=0;
         else{
@@ -154,12 +154,12 @@ void Aco::setpro(int index,int now){//第index隻螞蟻 antsway[index][now]--->�
     
 }
 
-void Aco::setposi(int index , int now){//index 第幾隻螞蟻 
+void Aco::setposi(int &index , int &now){//index 第幾隻螞蟻 
     int select=1;
     double max=float((rand()-1))/float(RAND_MAX);//(rand()%10000)*(0.0001);
     double ad=0;
     
-    for(size_t i = 0; i < datacount; i++)//保底
+    for(size_t i = 0; i < datacount; ++i)//保底
     {
         if(pro[index][i]>0){
             select=i;
@@ -167,7 +167,7 @@ void Aco::setposi(int index , int now){//index 第幾隻螞蟻
         }
     }
        
-    for(size_t i = 0; i < datacount; i++)
+    for(size_t i = 0; i < datacount; ++i)
     {
         ad+=pro[index][i];
         if(ad>=max){
@@ -182,9 +182,9 @@ void Aco::setposi(int index , int now){//index 第幾隻螞蟻
 
 void Aco::resetallow(){
     
-    for(size_t i = 0; i < antsnum; i++)
+    for(size_t i = 0; i < antsnum; ++i)
     { 
-        for(size_t j = 0; j < datacount; j++)
+        for(size_t j = 0; j < datacount; ++j)
         {
             allow[i][j]=0;
         }
@@ -195,7 +195,7 @@ void Aco::resetallow(){
  void Aco::findbest_len(){
 
      temp=1000000;
-     for(size_t i = 0; i < antsnum; i++)
+     for(size_t i = 0; i < antsnum; ++i)
      {
          float len=0;
          
@@ -219,7 +219,7 @@ void Aco::resetallow(){
  }
  void Aco::updatephe(){
      //只將該輪最佳路徑用來更新費落蒙表
-     for(size_t i = 0; i < datacount-1; i++)
+     for(size_t i = 0; i < datacount-1; ++i)
      {
          phe[tempbest[i]][tempbest[i+1]]*=aho;
          phe[tempbest[i]][tempbest[i+1]]+=Q/temp;
