@@ -1,12 +1,14 @@
 
 CC = g++
+cxxflag = -std=c++11 -Wall
 exe = main
-obj = read_file_double.o
+obj = test.o 
+# src = 
 
 all:$(obj)
-	$(CC) -std=c++11 $(obj) -o $(exe)   
+	$(CC) $(cxxflag) $(obj) -o $(exe)   
 %.o:%.cpp
-	$(CC) -g -c -std=c++11 -Wall $^ 
+	$(CC) -g -c $(cxxflag) $^ 
 
 .PHONY:clean
 clean:
