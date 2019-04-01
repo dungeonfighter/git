@@ -133,7 +133,7 @@ void Aco::getantsways(){
     
 }
 
-void Aco::setpro(int &index,int &now){//第index隻螞蟻 antsway[index][now]--->才是現在的城市編號
+void Aco::setpro(int index,int now){//第index隻螞蟻 antsway[index][now]--->才是現在的城市編號
     
     double dei=0;//分母     
     for(size_t j = 0; j < datacount; ++j)
@@ -154,7 +154,7 @@ void Aco::setpro(int &index,int &now){//第index隻螞蟻 antsway[index][now]---
     
 }
 
-void Aco::setposi(int &index , int &now){//index 第幾隻螞蟻 
+void Aco::setposi(int index , int now){//index 第幾隻螞蟻 
     int select=1;
     double max=float((rand()-1))/float(RAND_MAX);//(rand()%10000)*(0.0001);
     double ad=0;
