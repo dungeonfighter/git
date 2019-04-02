@@ -6,7 +6,6 @@
 #include <cmath>
 #include <iomanip>
 #include <cstdlib>
-
 using namespace std;
 
 struct TarHeader
@@ -45,6 +44,7 @@ private:
     int filenum;
     state is_UStar();
     void checkValidheader();
+    string filemode2string(int modeNum);
     int oct2Dec(const char* array, int length);
 };
 

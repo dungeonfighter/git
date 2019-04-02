@@ -6,5 +6,6 @@ int main(int argc, char *argv[])
 
 	Mytar E(argv[1]);
 	E.read();
+	E.showContent();
 	return 0;
 }
