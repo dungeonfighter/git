@@ -31,6 +31,7 @@ class Complex
     friend double Abs(const Complex &x);
     friend double Arg(const Complex &x);
     friend Complex operator+(const Complex &x, const Complex &y);
+    friend Complex operator+(int x, const Complex &y);
     friend Complex operator-(const Complex &x, const Complex &y);
     friend Complex operator*(const Complex &x, const Complex &y);
     friend Complex operator/(const Complex &x, const Complex &y);

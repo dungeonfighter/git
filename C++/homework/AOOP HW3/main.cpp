@@ -17,40 +17,41 @@ int main()
     cout << i++ << ": " << b.Norm() << endl;
     cout << i++ << ": " << Abs(b) << endl;
     cout << i++ << ": " << b.Abs() << endl;
-    /*
+    
     cout << i++ << ": " << Arg(b) << endl;
     cout << i++ << ": " << b.Arg() << endl;
     
     a = Complex(12, 33.2);
     cout << i++ << ": " << a << endl;
     cout << i++ << ": " << 1 + a << endl;
-
+    
     cout << i++ << ": " << a++ << endl;
     cout << i++ << ": " << ++a << endl;
-
+    
     b = a.Polar(5.6, 1.8);
 
     cout << i++ << ": " << a << endl;
     cout << i++ << ": " << b << endl;
-
+    
     b = Polar(6.5, 8.1);
     cout << i++ << ": " << b << endl;
-
+    
     cout << i++ << ": " << a + b << endl;
     cout << i++ << ": " << a - b << endl;
+    
     cout << i++ << ": " << a * b << endl;
     cout << i++ << ": " << a / b << endl;
-
+    
     a /= b;
     cout << i++ << ": " << a << endl;
     a /= Complex(4, 3);
     cout << i++ << ": " << a << endl;
-
+    
     a *= b;
     cout << i++ << ": " << a << endl;
     a *= Polar(5.1, 5.1);
     cout << i++ << ": " << a << endl;
-
+    
     a += b;
     b -= a;
     cout << i++ << ": " << b << endl;
@@ -61,5 +62,5 @@ int main()
     if (a != b)
         cout << i++ << ": "
              << "OK" << endl;
-    */
+    
 }
