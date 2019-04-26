@@ -14,7 +14,7 @@ all:$(obj)
 
 .PHONY:clean
 clean:
-	rm -rf $(obj) $(exe)
+	rm -rf $(obj) $(exe) *.txt
 
 
 #多行註解範例
@@ -30,5 +30,5 @@ $(objects).o:$(objects).cpp
 	g++ -g -c -pthread -std=c++11 -Wall $(objects).cpp
 
 clean:
-	rm -rf *.o  
+	rm -rf *.o  *.txt
 endif
